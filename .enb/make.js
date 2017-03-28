@@ -6,7 +6,7 @@ var techs = {
         // optimization
         borschik: require('enb-borschik/techs/borschik'),
 
-        // css
+        // postcss
         postcss: require('enb-postcss/techs/enb-postcss'),
         postcssPlugins: [
             require('postcss-import')(),
@@ -16,7 +16,7 @@ var techs = {
             require('postcss-calc')(),
             require('postcss-nested'),
             require('rebem-css'),
-            require('postcss-url')({ url: 'inline' }),
+            require('postcss-url')({ url: 'rebase' }),
             require('autoprefixer')(),
             require('postcss-reporter')()
         ],
@@ -25,11 +25,11 @@ var techs = {
         browserJs: require('enb-js/techs/browser-js'),
 
         // bemtree
-        // bemtree: require('enb-bemxjst/techs/bemtree'),
+        bemtree: require('enb-bemxjst/techs/bemtree'),
 
         // bemhtml
         bemhtml: require('enb-bemxjst/techs/bemhtml'),
-        bemjsonToHtml: require('enb-bemxjst/techs/bemjson-to-html')
+        bemtreeToHtml: require('./techs/bemtree-to-html'),
     },
     enbBemTechs = require('enb-bem-techs'),
     levels = [
@@ -50,30 +50,51 @@ module.exports = function(config) {
         nodeConfig.addTechs([
             // essential
             [enbBemTechs.levels, { levels: levels }],
-            [techs.fileProvider, { target: '?.bemjson.js' }],
-            [enbBemTechs.bemjsonToBemdecl],
+            [techs.fileProvider, { target: '?.bemdecl.js' }],
             [enbBemTechs.deps],
             [enbBemTechs.files],
 
-            // css
+            // postcss & css
             [techs.postcss, {
                 target: '?.css',
-                oneOfSourceSuffixes: ['post.css', 'css'],
-                plugins: techs.postcssPlugins
+                sourceSuffixes : ['post.css', 'css', 'ie.post.css', 'ie.css'],
+                plugins : techs.postcssPlugins
             }],
 
             // bemtree
-            // [techs.bemtree, { sourceSuffixes: ['bemtree', 'bemtree.js'] }],
+            [techs.bemtree, { sourceSuffixes: ['bemtree', 'bemtree.js'] }],
 
             // bemhtml
             [techs.bemhtml, {
                 sourceSuffixes: ['bemhtml', 'bemhtml.js'],
-                forceBaseTemplates: true,
-                engineOptions : { elemJsInstances : true }
+                forceBaseTemplates: true
             }],
 
             // html
-            [techs.bemjsonToHtml],
+            [techs.bemtreeToHtml],
+
+            /* My code yazvyazda */
+            // client bemtree
+            [enbBemTechs.depsByTechToBemdecl, {
+                target: '?.bemtree.bemdecl.js',
+                sourceTech: 'js',
+                destTech: 'bemtree'
+            }],
+            [enbBemTechs.deps, {
+                target: '?.bemtree.deps.js',
+                bemdeclFile: '?.bemtree.bemdecl.js'
+            }],
+            [enbBemTechs.files, {
+                depsFile: '?.bemtree.deps.js',
+                filesTarget: '?.bemtree.files',
+                dirsTarget: '?.bemtree.dirs'
+            }],
+            [techs.bemtree, {
+                target: '?.browser.bemtree.js',
+                filesTarget: '?.bemtree.files',
+                sourceSuffixes: ['bemtree', 'bemtree.js']
+            }],
+            /* /My code yazvyazda */
 
             // client bemhtml
             [enbBemTechs.depsByTechToBemdecl, {
@@ -93,15 +114,14 @@ module.exports = function(config) {
             [techs.bemhtml, {
                 target: '?.browser.bemhtml.js',
                 filesTarget: '?.bemhtml.files',
-                sourceSuffixes: ['bemhtml', 'bemhtml.js'],
-                engineOptions : { elemJsInstances : true }
+                sourceSuffixes: ['bemhtml', 'bemhtml.js']
             }],
 
             // js
             [techs.browserJs, { includeYM: true }],
             [techs.fileMerge, {
                 target: '?.js',
-                sources: ['?.browser.js', '?.browser.bemhtml.js']
+                sources: ['?.browser.js', '?.browser.bemhtml.js', '?.browser.bemtree.js']
             }],
 
             // borschik
@@ -109,6 +129,6 @@ module.exports = function(config) {
             [techs.borschik, { source: '?.css', target: '?.min.css', minify: isProd }]
         ]);
 
-        nodeConfig.addTargets([/* '?.bemtree.js', */ '?.html', '?.min.css', '?.min.js']);
+        nodeConfig.addTargets(['?.bemtree.js', '?.html', '?.min.css', '?.min.js']);
     });
 };
