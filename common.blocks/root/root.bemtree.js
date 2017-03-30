@@ -4,7 +4,7 @@ block('root').replace()(function() {
         meta = data.meta || {},
         og = meta.og || {};
 
-    console.log(this);
+    // console.log(this.data);
 
     if (ctx.context) return ctx.context;
 

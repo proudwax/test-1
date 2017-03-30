@@ -1,50 +1,174 @@
-[
-    {
-        "school": "shri",
-        "date": "2016-10-20",
-        "title": "Лекция 1. Адаптивная вёрстка",
-        "teacher": "Дмитрий Душкин",
-        "teacher_id": 1,
-        "place": 100
-    },
-    {
-        "school": "shri",
-        "date": "2016-10-27",
-        "title": "Лекция 2. Работа с сенсорным пользовательским вводом",
-        "teacher": "Дмитрий Душкин",
-        "teacher_id": 1,
-        "place": 110
-    },
-    {
-        "school": "design",
-        "date": "2016-10-20",
-        "title": ["Лекция 1. Идея, исследование, концепт (Часть 1)", "Лекция 2. Идея, исследование, концепт (Часть 2)"],
-        "teacher": ["Антон Тен", "Антон Тен"],
-        "teacher_id": [2, 2],
-        "place": 101
-    },
-    {
-        "school": "design",
-        "date": "2016-10-25",
-        "title": "Лекция 3. Особенности проектирования мобильных интерфейсов",
-        "teacher": "Васюнин Николай",
-        "teacher_id": 3,
-        "place": 102
-    },
-    {
-        "school": "mobdev",
-        "date": "2016-10-19",
-        "title": ["Лекция 1. Java Blitz (Часть 1)", "Лекция 2. Git & Workflow"],
-        "teacher": ["Эдуард Мацуков", "Дмитрий Складнов"],
-        "teacher_id": [4, 5],
-        "place": 101
-    },
-    {
-        "school": "mobdev",
-        "date": "2016-10-25",
-        "title": ["Лекция 3. Java Blitz (Часть 2)", "MyFirstApp (Часть 1)"],
-        "teacher": ["Эдуард Мацуков", "Роман Григорьев"],
-        "teacher_id": [4, 6],
-        "place": 110
-    }
-]
+{
+    "school": [
+        {
+            "school_name": "Школа разработки интерфейсов",
+            "school_id": 1,
+            "students_count": 15,
+            "calendar": [
+                {
+                    "date": "2016-10-20",
+                    "title": "Лекция 1. Адаптивная вёрстка",
+                    "teacher_id": 1,
+                    "classroom_id": 1
+                },
+                {
+                    "date": "2016-10-27",
+                    "title": "Лекция 2. Работа с сенсорным пользовательским вводом",
+                    "teacher_id": 1,
+                    "classroom_id": 1
+                },
+                {
+                    "date": "2016-11-03",
+                    "title": "Лекция 3. Мультимедиа: возможности браузера",
+                    "teacher_id": 2,
+                    "classroom_id": 1
+                },
+                {
+                    "date": "2016-11-10",
+                    "title": "Лекция 4. Нативные приложения на веб-технологиях",
+                    "teacher_id": 3,
+                    "classroom_id": 1
+                }
+            ]
+        },
+        {
+            "school_name": "Школа мобильной разработки",
+            "school_id": 2,
+            "students_count": 12,
+            "calendar": [
+                {
+                    "date": "2016-10-19",
+                    "title": "Лекция 1. Java Blitz (Часть 1)",
+                    "teacher_id": 4,
+                    "classroom_id": 1
+                },
+                {
+                    "date": "2016-10-19",
+                    "title": "Лекция 2. Git & Workflow",
+                    "teacher_id": 5,
+                    "classroom_id": 1
+                },
+                {
+                    "date": "2016-10-25",
+                    "title": "Лекция 3. Java Blitz (Часть 2)",
+                    "teacher_id": 4,
+                    "classroom_id": 1
+                },
+                {
+                    "date": "2016-10-25",
+                    "title": "MyFirstApp (Часть 1)",
+                    "teacher_id": 6,
+                    "classroom_id": 1
+                },
+                {
+                    "date": "2016-11-02",
+                    "title": "Лекция 5. MyFirstApp (Часть 2)",
+                    "teacher_id": 6,
+                    "classroom_id": 1
+                },
+                {
+                    "date": "2016-11-02",
+                    "title": "Лекция 6. ViewGroup",
+                    "teacher_id": 7,
+                    "classroom_id": 1
+                },
+                {
+                    "date": "2016-11-09",
+                    "title": "Лекция 7. Background",
+                    "teacher_id": 8,
+                    "classroom_id": 1
+                },
+                {
+                    "date": "2016-11-09",
+                    "title": "Лекция 8. RecyclerView",
+                    "teacher_id": 9,
+                    "classroom_id": 1
+                }
+            ]
+        },
+        {
+            "school_name": "Школа мобильного дизайна",
+            "school_id": 3,
+            "students_count": 18,
+            "calendar": [
+                {
+                    "date": "2016-10-18",
+                    "title": "Лекция 1. Идея, исследование, концепт (Часть 1)",
+                    "teacher_id": 10,
+                    "classroom_id": 1
+                },
+                {
+                    "date": "2016-10-18",
+                    "title": "Лекция 2. Идея, исследование, концепт (Часть 2)",
+                    "teacher_id": 10,
+                    "classroom_id": 1
+                },
+                {
+                    "date": "2016-10-25",
+                    "title": "Лекция 3. Особенности проектирования мобильных интерфейсов",
+                    "teacher_id": 11,
+                    "classroom_id": 1
+                },
+                {
+                    "date": "2016-11-01",
+                    "title": "Лекция 4. Продукт и платформа",
+                    "teacher_id": 12,
+                    "classroom_id": 1
+                },
+                {
+                    "date": "2016-11-01",
+                    "title": "Лекция 5. Природа операционных систем",
+                    "teacher_id": 13,
+                    "classroom_id": 1
+                },
+                {
+                    "date": "2016-11-08",
+                    "title": "Лекция 6. Прототипирование как процесс",
+                    "teacher_id": [14,15],
+                    "classroom_id": 1
+                },
+                {
+                    "date": "2016-11-08",
+                    "title": "Лекция 7. Инструмент под задачи",
+                    "teacher_id": [14,15],
+                    "classroom_id": 1
+                }
+            ]
+        }
+    ],
+    "teachers": [
+        {
+            "teacher_name": "Дмитрий Душкин",
+            "teacher_id": 1
+        },
+        {
+            "teacher_name": "Максим Васильев",
+            "teacher_id": 2
+        },
+        {
+            "teacher_name": "Сергей Бережной",
+            "teacher_id": 3
+        },
+        {
+            "teacher_name": "Эдуард Мацуков",
+            "teacher_id": 4
+        }
+    ],
+    "classrooms": [
+        {
+            "classroom_name": "Белая",
+            "classroom_id": 1,
+            "classroom_capacity": 20
+        },
+        {
+            "classroom_name": "Желтая",
+            "classroom_id": 2,
+            "classroom_capacity": 15
+        },
+        {
+            "classroom_name": "Синяя",
+            "classroom_id": 3,
+            "classroom_capacity": 40
+        }
+    ]
+}

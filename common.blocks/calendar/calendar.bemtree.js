@@ -1,49 +1,86 @@
 block('calendar').content()(function() {
     var data = this.data,
-        arrayDate = [];
-
-    // console.log(this.data);
-
-    /**
-    *   Получаем массив дат
-    *   @return {array}
-    */
-    // [].forEach.call(data, function (item, i) {
-    //     arrayDate[i] = new Date(Date.parse(item.date));
-    //     // console.log(arrayDate[i].getDay());
-    // });
+        j = 0,
+        calendar = [],
+        calendarFull = [],
+        school = {'shri': 1, 'design': 2, 'mobdev': 3},
+        month = ['Январь', '', '', '', '', '',];
+        toDay = new Date(2016,10,23);
 
     /**
-    *   Сортируем
-    *   elem[0] - min,
-    *   elem[last] - max
-    *   @return {array}
+    *   в data преобразем .date в unix Date
+    *   @return {data}
     */
-    arrayDate.sort(function (a, b) { return a - b; } );
+
+    [].forEach.call(data, function (item, i) {
+        item.date = new Date(Date.parse(item.date));
+    });
+
+
+    /**
+    *   Сортируем массив объектов data по дате
+    *   @return {data}
+    */
+
+    [].sort.call(data, function (a, b) {
+        return a.date - b.date;
+    });
+
 
     /**
     *   Дата с понедельника
     *   @return {Date}
     */
-    // var calendarFrom = new Date(arrayDate[0].getFullYear(), arrayDate[0].getMonth(),  arrayDate[0].getDate() - arrayDate[0].getDay() + 1);
+
+    var firstDay = data[0].date,
+        calendarFrom = new Date(firstDay.getFullYear(), firstDay.getMonth(),  firstDay.getDate() - firstDay.getDay() + 1, 3);
+    var calendarFromDay = calendarFrom.getDate(),
+        calendarFromMonth = calendarFrom.getMonth(),
+        currentDate = calendarFrom;
 
     /**
     *   Дата до воскресенья
     *   @return {Date}
     */
-    // var calendarTo = new Date(arrayDate[arrayDate.length - 1].getFullYear(), arrayDate[arrayDate.length - 1].getMonth(),  arrayDate[arrayDate.length - 1].getDate() + 7 - arrayDate[arrayDate.length - 1].getDay());
 
-    // console.log(data);
+    var lastDay = data[data.length - 1].date;
+        calendarTo = new Date(lastDay.getFullYear(), lastDay.getMonth(), lastDay.getDate() - lastDay.getDay() + 7, 3);
+    var calendarToDay = calendarTo.getDate(),
+        calendarToMonth = calendarTo.getMonth();
 
-    return [
-        {
-            elem: 'week',
-            content: [
-                {
+
+    for(let i = Date.parse(calendarFrom); i <= Date.parse(calendarTo); i += 3600 * 24 * 1000) {
+        if (i == Date.parse(data[j].date)) {
+            console.log('rertertertertertre');
+            calendar.push({
                     elem: 'day',
-                    content: 're'
-                }
-            ]
+                    content: [
+                        {
+                            block: 'day',
+                            mods: { 'school': (school[data[j].school]) },
+                            content: (new Date(data[j].date).getDate())
+                        }
+                    ]
+                });
+
+            j++;
+        } else {
+            calendar.push({
+                    elem: 'day',
+                    content: [
+                        {
+                            block: 'day',
+                            content: (new Date(i).getDate())
+                        }
+                    ]
+                });
         }
-    ];
+
+        if (new Date(i).getDay() == 0) {
+            calendarFull.push([{ elem: 'week', content: calendar }]);
+            calendar = [];
+        }
+    }
+
+    return calendarFull;
 });
